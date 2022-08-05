@@ -1,36 +1,58 @@
 import '../components/styles.css'
 import axios from 'axios'
+import SearchBar from './ImageGallery/SearchBar'
+import ImageGallery from './ImageGallery/ImageGallery'
 
 const { Component } = require("react")
 
 class App extends Component  {
 
 state = {
-  photoBaza: [],
-  key: ""
-}
-
-
-
-async componentDidMount () {
-
-
-const photos = await axios.get(`https://pixabay.com/api/?q=${this.state.key}&page=1&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=12`)
-this.setState({photoBaza: {id: photos.data.hits.id, webformatURL: photos.data.hits.webformatURL, largeImageURL: photos.data.hits.largeImageURL }})
-console.log(this.state.photoBaza)
-
+  link: `https://pixabay.com/api/?q=cat&page=1&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=12`,
+  key: "",
+  page: 1,
 
 }
 
 
-onSumbit () {
 
-  /*  для інпута в серч барі*/
-}
+photos = [];
+
+
+
+
+
+
+
+
+
+async componentDidUpdate (prevState, prevProps) {
+
+  if (this.state.link !== prevState.link) {
+const photos = await axios.get(this.state.link)
+     this.photos = photos.data.hits
+
+
+  }
+  }
+
+
+ onSubmit = (e) => {
+const keyWord = e.target.search.value
+
+ this.setState({ link: `https://pixabay.com/api/?q=${keyWord}&page=1&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=12`})
+ e.preventDefault()
+ e.target.reset()
+
+  }
+
+ 
 
 
 
 render () {
+
+ 
 
   return (
     <div
@@ -43,7 +65,8 @@ render () {
         color: '#010101'
       }}
     >
-      {this.state.photos}
+      <SearchBar  onSubmit={this.onSubmit}/>
+      <ImageGallery photos={this.photos}/>
     </div>
   )
 
