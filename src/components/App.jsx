@@ -7,40 +7,45 @@ const { Component } = require("react")
 
 class App extends Component  {
 
+
 state = {
-  link: `https://pixabay.com/api/?q=cat&page=1&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=12`,
-  key: "",
+  link: '',
   page: 1,
+  photos: [],
+  key: '',
+
+}
+
+
+componentDidUpdate = (prevProps, prevState) => {
+
+const currentKey = this.state.key
+console.log(prevState.key, currentKey)
+
+if (prevState.key !== this.state.key) {
+this.getPhoto()
+
+
+}
 
 }
 
 
 
-photos = [];
 
+getPhoto = async () => {
+  const photos = await axios.get(this.state.link)
+  this.setState({photos: photos.data.hits})
+  console.log(this.photos) 
+}
 
-
-
-
-
-
-
-
-async componentDidUpdate (prevState, prevProps) {
-
-  if (this.state.link !== prevState.link) {
-const photos = await axios.get(this.state.link)
-     this.photos = photos.data.hits
-
-
-  }
-  }
 
 
  onSubmit = (e) => {
-const keyWord = e.target.search.value
 
- this.setState({ link: `https://pixabay.com/api/?q=${keyWord}&page=1&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=12`})
+const keyWord = e.target.search.value
+this.setState({key: keyWord})
+ this.setState({key: keyWord, link: `https://pixabay.com/api/?q=${keyWord}&page=1&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=12`})
  e.preventDefault()
  e.target.reset()
 
@@ -66,7 +71,7 @@ render () {
       }}
     >
       <SearchBar  onSubmit={this.onSubmit}/>
-      <ImageGallery photos={this.photos}/>
+      <ImageGallery photos={this.state.photos}/>
     </div>
   )
 
