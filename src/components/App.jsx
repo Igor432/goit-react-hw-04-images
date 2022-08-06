@@ -23,17 +23,19 @@ componentDidUpdate = (prevProps, prevState) => {
 
   console.log(this.state.photos) 
 const currentKey = this.state.key
-console.log(prevState.key, currentKey)
+console.log( currentKey)
+if (prevState.key !== this.state.key) {
+  this.setState({page: 1, perPage: 12})
+ 
+}
 
 if (prevState.link !== this.state.link) {
 this.getPhoto()
 
-}
-
-if (prevState.perPage !== this.state.perPage) {
+} else if (prevState.perPage !== this.state.perPage) {
   this.setState({ link: `https://pixabay.com/api/?q=${this.state.key}&page=${this.state.page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${this.state.perPage}`})
 
-  }
+  } 
 
 
 }
@@ -42,11 +44,9 @@ if (prevState.perPage !== this.state.perPage) {
 
 
 getPhoto = async () => {
+  
   const photos = await axios.get(this.state.link)
-  
   this.setState({photos: photos.data.hits, total: photos.data.total})
-
-  
 }
 
 
@@ -59,6 +59,8 @@ this.setState({key: keyWord})
  this.setState({key: keyWord, link: `https://pixabay.com/api/?q=${keyWord}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`})
  e.preventDefault()
  e.target.reset()
+
+
 
   }
 
