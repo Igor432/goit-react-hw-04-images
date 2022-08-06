@@ -1,11 +1,11 @@
 import '../styles.css'
 
 
-const ImageGalleryItem = ({key, webformatURL, largeImageURL}) => {
+const ImageGalleryItem = ({ webformatURL, largeImageURL}) => {
 
 return (
 
-    <li class="ImageGalleryItem" id={key}>
+    <li class="ImageGalleryItem" >
   <img class='ImageGalleryItem-image' src={webformatURL} alt="" />
 </li>
 )
