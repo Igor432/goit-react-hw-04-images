@@ -3,6 +3,7 @@ import axios from 'axios'
 import SearchBar from './ImageGallery/SearchBar'
 import ImageGallery from './ImageGallery/ImageGallery'
 import Button from './ImageGallery/Button'
+import Modal from './ImageGallery/Modal'
 
 const { Component } = require("react")
 
@@ -15,8 +16,12 @@ state = {
   photos: [],
   total: 0,
   key: '',
-perPage: 12
+perPage: 12,
+modal: false
 }
+
+
+/* написати клік по імдж відкриває модалку у стейті */
 
 
 componentDidUpdate = (prevProps, prevState) => {
@@ -26,7 +31,6 @@ const currentKey = this.state.key
 console.log( currentKey)
 if (prevState.key !== this.state.key) {
   this.setState({page: 1, perPage: 12})
- 
 }
 
 if (prevState.link !== this.state.link) {
@@ -87,6 +91,7 @@ console.log(this.state.page)
 render () {
 
  const {total} = this.state
+ const {modal} = this.state
 
   return (
     <div 
@@ -102,6 +107,7 @@ render () {
       <SearchBar  onSubmit={this.onSubmit}/>
       <ImageGallery photos={this.state.photos}/>
       {total > 12 && <Button loadMOre={this.loadMore}/>}
+      {modal && <Modal/>}
     </div>
   )
 
