@@ -1,4 +1,4 @@
-import '../components/styles.css'
+import './styles.css'
 import axios from 'axios'
 import SearchBar from './ImageGallery/SearchBar'
 import ImageGallery from './ImageGallery/ImageGallery'
@@ -60,7 +60,8 @@ render () {
  
 
   return (
-    <div
+    <div 
+    class='App'
       style={{
         height: '100vh',
         display: 'flex',
@@ -68,6 +69,7 @@ render () {
         alignItems: 'center',
         fontSize: 40,
         color: '#010101'
+        
       }}
     >
       <SearchBar  onSubmit={this.onSubmit}/>

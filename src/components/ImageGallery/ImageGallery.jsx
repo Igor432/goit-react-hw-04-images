@@ -4,7 +4,7 @@ import ImageGalleryItem from "./ImageGalleryItem"
 const ImageGallery = ({photos}) => {
 
     return (
-        <ul class="gallery">
+        <ul class="ImageGallery">
 
 {photos.map(photo =>
     <ImageGalleryItem key={photo.id} webformatURL={photo.webformatURL} largeImageURL={photo.largeImageURL}/>

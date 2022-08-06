@@ -5,8 +5,8 @@ const ImageGalleryItem = ({key, webformatURL, largeImageURL}) => {
 
 return (
 
-    <li class="gallery-item" id={key}>
-  <img src={webformatURL} alt="" />
+    <li class="ImageGalleryItem" id={key}>
+  <img class='ImageGalleryItem-image' src={webformatURL} alt="" />
 </li>
 )
     
