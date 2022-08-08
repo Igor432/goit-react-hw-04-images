@@ -142,7 +142,7 @@ render () {
       {this.state.isLoading && <Rings color="#00BFFF" height={280} width={280} class='rings'/>}
       <ImageGallery photos={this.state.photos} onModal={this.onModal}/>
       {total > 12 && <Button loadMOre={this.loadMore}/>}
-     {modal && <Modal photos={this.state.photos} largePhoto={this.state.largePhoto} /*quitModal={this.quitModal}*//>}
+     {modal && <Modal photos={this.state.photos} largePhoto={this.state.largePhoto} />}
     </div>
   )
 
