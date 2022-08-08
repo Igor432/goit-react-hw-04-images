@@ -4,15 +4,16 @@ import '../styles.css'
 
 const Modal = ({largePhoto}) => {
 
-console.log(typeof(largePhoto))
+console.log(largePhoto)
+
 
 
 return (
 
 <div class="Overlay">
   <div class="Modal">
-    <h1>Wait...</h1>
-    <img src={largePhoto.largeImageURL} alt="" id={largePhoto.id} class='ImageGalleryItem-image' />
+   
+    <img src={largePhoto[0].largeImageURL} alt={largePhoto[0].tags}  id={largePhoto[0].id}  />
   </div>
 </div>
 
