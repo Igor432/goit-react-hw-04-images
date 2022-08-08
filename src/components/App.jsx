@@ -17,7 +17,9 @@ state = {
   total: 0,
   key: '',
 perPage: 12,
-modal: false
+modal: false,
+largeImageID: 0,
+largePhoto: {}
 }
 
 
@@ -42,7 +44,13 @@ this.getPhoto()
   } 
 
 
+
+
+
 }
+
+
+
 
 
 
@@ -50,7 +58,7 @@ this.getPhoto()
 getPhoto = async () => {
   
   const photos = await axios.get(this.state.link)
-  this.setState({photos: photos.data.hits, total: photos.data.total})
+  this.setState({photos: photos.data.hits, total: photos.data.total, id:photos.data.id})
 }
 
 
@@ -87,6 +95,18 @@ console.log(this.state.page)
 
 
 
+onModal = (e) => {
+  const target = e.target
+  this.setState({modal: true})
+let bigPhoto = this.state.photos.filter((photo) => photo.id === Math.floor(target.name))
+this.setState({largePhoto: bigPhoto})
+
+
+
+  }
+
+
+
 
 render () {
 
@@ -105,9 +125,9 @@ render () {
       }}
     >
       <SearchBar  onSubmit={this.onSubmit}/>
-      <ImageGallery photos={this.state.photos}/>
+      <ImageGallery photos={this.state.photos} onModal={this.onModal} />
       {total > 12 && <Button loadMOre={this.loadMore}/>}
-      {modal && <Modal/>}
+     {modal && <Modal show={this.state.modal} photos={this.state.photos} id={this.state.largeImageID} largePhoto={this.state.largePhoto}/>}
     </div>
   )
 
