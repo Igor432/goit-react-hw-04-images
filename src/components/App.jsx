@@ -4,6 +4,7 @@ import SearchBar from './ImageGallery/SearchBar'
 import ImageGallery from './ImageGallery/ImageGallery'
 import Button from './ImageGallery/Button'
 import Modal from './ImageGallery/Modal'
+import { Rings } from 'react-loader-spinner'
 
 const { Component } = require("react")
 
@@ -11,6 +12,7 @@ class App extends Component  {
 
 
 state = {
+  isLoading: false,
   link: '',
   page: 1,
   photos: [],
@@ -18,12 +20,17 @@ state = {
   key: '',
 perPage: 12,
 modal: false,
-largeImageID: 0,
 largePhoto: {}
 }
 
 
-/* написати клік по імдж відкриває модалку у стейті */
+
+componentDidMount () {
+
+
+}
+
+
 
 
 componentDidUpdate = (prevProps, prevState) => {
@@ -32,6 +39,7 @@ componentDidUpdate = (prevProps, prevState) => {
 const currentKey = this.state.key
 console.log( currentKey)
 if (prevState.key !== this.state.key) {
+
   this.setState({page: 1, perPage: 12})
 }
 
@@ -56,9 +64,9 @@ document.addEventListener('keydown', this.quitModal)
 
 
 getPhoto = async () => {
-  
+  this.setState({isLoading: true})
   const photos = await axios.get(this.state.link)
-  this.setState({photos: photos.data.hits, total: photos.data.total, id:photos.data.id})
+  this.setState({photos: photos.data.hits, total: photos.data.total, id:photos.data.id, isLoading: false})
 }
 
 
@@ -131,9 +139,10 @@ render () {
       }}
     >
       <SearchBar  onSubmit={this.onSubmit}/>
+      {this.state.isLoading && <Rings color="#00BFFF" height={280} width={280} class='rings'/>}
       <ImageGallery photos={this.state.photos} onModal={this.onModal}/>
       {total > 12 && <Button loadMOre={this.loadMore}/>}
-     {modal && <Modal photos={this.state.photos} id={this.state.largeImageID} largePhoto={this.state.largePhoto} /*quitModal={this.quitModal}*//>}
+     {modal && <Modal photos={this.state.photos} largePhoto={this.state.largePhoto} /*quitModal={this.quitModal}*//>}
     </div>
   )
 
