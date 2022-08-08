@@ -1,5 +1,16 @@
+import { Rings } from "react-loader-spinner";
 
-function Loader () {
+
+const Loader = ({Loading}) => {
+
+console.log(typeof(Loading))
+
+return (
+
+<div class="Loader">
+{Loading && <Rings color="#00BFFF" Loading={Loading} height={380} width={380} />}
+</div>
+)
 
 }
 

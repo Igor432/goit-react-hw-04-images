@@ -4,7 +4,7 @@ import SearchBar from './ImageGallery/SearchBar'
 import ImageGallery from './ImageGallery/ImageGallery'
 import Button from './ImageGallery/Button'
 import Modal from './ImageGallery/Modal'
-import { Rings } from 'react-loader-spinner'
+import Loader from './ImageGallery/Loader'
 
 const { Component } = require("react")
 
@@ -22,15 +22,6 @@ perPage: 12,
 modal: false,
 largePhoto: {}
 }
-
-
-
-componentDidMount () {
-
-
-}
-
-
 
 
 componentDidUpdate = (prevProps, prevState) => {
@@ -126,6 +117,7 @@ render () {
 
  const {total} = this.state
  const {modal} = this.state
+const {isLoading} = this.state
 
   return (
     <div 
@@ -139,7 +131,7 @@ render () {
       }}
     >
       <SearchBar  onSubmit={this.onSubmit}/>
-      {this.state.isLoading && <Rings color="#00BFFF" height={280} width={280} class='rings'/>}
+   {isLoading && <Loader Loading={isLoading}/>}
       <ImageGallery photos={this.state.photos} onModal={this.onModal}/>
       {total > 12 && <Button loadMOre={this.loadMore}/>}
      {modal && <Modal photos={this.state.photos} largePhoto={this.state.largePhoto} />}
