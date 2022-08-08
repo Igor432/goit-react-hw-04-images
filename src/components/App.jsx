@@ -44,7 +44,7 @@ this.getPhoto()
   } 
 
 
-
+document.addEventListener('keydown', this.quitModal)
 
 
 }
@@ -100,10 +100,16 @@ onModal = (e) => {
   this.setState({modal: true})
 let bigPhoto = this.state.photos.filter((photo) => photo.id === Math.floor(target.name))
 this.setState({largePhoto: bigPhoto})
-
-
-
   }
+
+  quitModal = (e) => {
+if (e.key === "Escape") {
+    this.setState({modal: false})
+}
+    
+  }
+
+
 
 
 
@@ -125,9 +131,9 @@ render () {
       }}
     >
       <SearchBar  onSubmit={this.onSubmit}/>
-      <ImageGallery photos={this.state.photos} onModal={this.onModal} />
+      <ImageGallery photos={this.state.photos} onModal={this.onModal}/>
       {total > 12 && <Button loadMOre={this.loadMore}/>}
-     {modal && <Modal show={this.state.modal} photos={this.state.photos} id={this.state.largeImageID} largePhoto={this.state.largePhoto}/>}
+     {modal && <Modal photos={this.state.photos} id={this.state.largeImageID} largePhoto={this.state.largePhoto} /*quitModal={this.quitModal}*//>}
     </div>
   )
 

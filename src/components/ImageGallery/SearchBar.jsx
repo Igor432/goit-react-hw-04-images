@@ -11,7 +11,7 @@ return (
 <header class="Searchbar">
   <form class="SearchForm" onSubmit={onSubmit}>
     <button type="submit" class="SearchForm-button" >
-      <span>
+      <span class='SearchForm-button-label'>
       </span>
     </button>
 

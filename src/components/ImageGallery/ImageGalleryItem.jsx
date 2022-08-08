@@ -3,9 +3,6 @@ import '../styles.css'
 
 const ImageGalleryItem = ({ webformatURL, largeImageURL, id, onModal}) => {
 
-  /* якшо тогл переключений то лінка поміняєтья на велике зображення */
-
-
 return (
 
     <li class="ImageGalleryItem">
