@@ -20,53 +20,39 @@ const [isModalOpen, setIsModalOpen] = useState(false)
 const [largePhoto, setLargePhoto] = useState([])
 const [isLoading, setisLoading] = useState(false)
 const [page, setPage] = useState(1)
-
-
-
-
+const [link, setLink] = useState('')
 
 
 useEffect(() => {
+
 window.addEventListener('keydown', quitModal)
 
 }, [isModalOpen])
 
 
-
 useEffect(() => {
+  
   async function getPhoto ()  {
-
-    const getPhotos = await axios.get(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
+    setLink(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
+    const getPhotos = await axios.get(link)
     setPhotos(getPhotos.data.hits)
   setTotal(getPhotos.data.total)
     setisLoading(false)
   }
-  getPhoto()
-
-}, [perPage, page, key])
-
-
-useEffect(() => {
-setperPage(12)
-setPage(1)
-
-}, [key])
-
-
-
-
-
-
-
-
-
-async function getPhoto ()  {
-
-  const getPhotos = await axios.get(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
-  setPhotos(getPhotos.data.hits)
-setTotal(getPhotos.data.total)
-  setisLoading(false)
+  if (key !== '') {
+    getPhoto()
+} else {
+  console.log("empty")
 }
+  
+
+}, [key, link, perPage, page])
+
+
+
+  
+
+
 
 
 const onSubmit =  (e) => {
@@ -74,9 +60,11 @@ const onSubmit =  (e) => {
   setisLoading(true)
 const keyWord = e.target.search.value
 setKey(keyWord)
- e.target.reset()
+setPage(1)
+setperPage(12)
+setLink(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
+e.target.reset()
 
-getPhoto(keyWord)
 }
 
 
