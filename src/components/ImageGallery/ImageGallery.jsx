@@ -3,9 +3,7 @@ import ImageGalleryItem from "./ImageGalleryItem"
 
 
 const ImageGallery = ({Images, onModal}) => {
-console.log(typeof(Images))
  
-
     return (
         <ul class="ImageGallery">
 

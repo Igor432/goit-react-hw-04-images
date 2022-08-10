@@ -12,10 +12,8 @@ import { useEffect } from 'react'
 function App () {
 
 
-const [link, setLink] = useState("")
-const [key, setKey] = useState('')
 const [photos, setPhotos] = useState([]) 
-const [total, setTotal] = useState('')
+const [total, setTotal] = useState(0)
 const [perPage, setperPage] = useState(12)
 const [isModalOpen, setIsModalOpen] = useState(false)
 const [largePhoto, setLargePhoto] = useState([])
@@ -55,32 +53,23 @@ document.addEventListener('keydown', this.quitModal)
 
 
 
-useEffect(() => {
-
 const getPhoto = async (key) => {
 
   const getPhotos = await axios.get(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
   setPhotos(getPhotos.data.hits)
-setTotal(getPhoto.data)
-  console.log(photos)
+setTotal(getPhotos.data.total)
   setisLoading(false)
 }
-getPhoto(key)
-
-}, [key, perPage])
-
-
 
 
 const onSubmit =  (e) => {
   e.preventDefault()
   setisLoading(true)
 const keyWord = e.target.search.value
-setKey(keyWord)
 
  e.target.reset()
 
-
+getPhoto(keyWord)
 }
 
 
@@ -104,9 +93,6 @@ const onModal = (e) => {
 let bigPhoto = photos.filter((photo) => photo.id === Math.floor(target.name))
 setLargePhoto(bigPhoto)
   }
-
-
-
 
 
  const quitModal = (e) => {
