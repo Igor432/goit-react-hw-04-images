@@ -128,7 +128,7 @@ setLargePhoto(bigPhoto)
    {isLoading && <Loader Loading={isLoading}/>}
    {photos.length > 1 && <ImageGallery Images={photos} onModal={onModal}/>}
 
-      {total > 12 && <Button loadMOre={loadMore}/>}
+      {key !== '' && <Button loadMOre={loadMore}/>}
      {isModalOpen && <Modal photos={photos} largePhoto={largePhoto} />}
     </div>
   )
