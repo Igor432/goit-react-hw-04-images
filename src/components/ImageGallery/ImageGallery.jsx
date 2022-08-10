@@ -2,20 +2,27 @@ import ImageGalleryItem from "./ImageGalleryItem"
 
 
 
-
-const ImageGallery = ({photos, onModal}) => {
+const ImageGallery = ({Images, onModal}) => {
+console.log(typeof(Images))
+ 
 
     return (
         <ul class="ImageGallery">
 
-{photos.map(photo =>
+{Images.map(photo =>
     <ImageGalleryItem id={photo.id} key={photo.id} webformatURL={photo.webformatURL} largeImageURL={photo.largeImageURL} onModal={onModal}/>
 )}
 
-
-
 </ul>
     )
+
+
 }
 
 export default ImageGallery
+
+/*
+
+
+
+*/

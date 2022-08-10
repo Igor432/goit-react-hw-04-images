@@ -5,26 +5,29 @@ import ImageGallery from './ImageGallery/ImageGallery'
 import Button from './ImageGallery/Button'
 import Modal from './ImageGallery/Modal'
 import Loader from './ImageGallery/Loader'
-
-const { Component } = require("react")
-
-class App extends Component  {
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 
-state = {
-  isLoading: false,
-  link: '',
-  page: 1,
-  photos: [],
-  total: 0,
-  key: '',
-perPage: 12,
-modal: false,
-largePhoto: {}
-}
+function App () {
 
 
-componentDidUpdate = (prevProps, prevState) => {
+const [link, setLink] = useState("")
+const [key, setKey] = useState('')
+const [photos, setPhotos] = useState([]) 
+const [total, setTotal] = useState('')
+const [perPage, setperPage] = useState(12)
+const [isModalOpen, setIsModalOpen] = useState(false)
+const [largePhoto, setLargePhoto] = useState([])
+const [isLoading, setisLoading] = useState(false)
+
+const page = 1
+
+
+
+
+/*
+const componentDidUpdate = (prevProps, prevState) => {
 
   console.log(this.state.photos) 
 const currentKey = this.state.key
@@ -48,76 +51,71 @@ document.addEventListener('keydown', this.quitModal)
 
 }
 
+*/
 
 
 
+useEffect(() => {
 
+const getPhoto = async (key) => {
 
-
-getPhoto = async () => {
-  this.setState({isLoading: true})
-  const photos = await axios.get(this.state.link)
-  this.setState({photos: photos.data.hits, total: photos.data.total, id:photos.data.id, isLoading: false})
+  const getPhotos = await axios.get(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
+  setPhotos(getPhotos.data.hits)
+setTotal(getPhoto.data)
+  console.log(photos)
+  setisLoading(false)
 }
+getPhoto(key)
+
+}, [key, perPage])
 
 
 
- onSubmit = (e) => {
-const {page} = this.state
-const {perPage} = this.state
+
+const onSubmit =  (e) => {
+  e.preventDefault()
+  setisLoading(true)
 const keyWord = e.target.search.value
-this.setState({key: keyWord})
- this.setState({key: keyWord, link: `https://pixabay.com/api/?q=${keyWord}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`})
- e.preventDefault()
+setKey(keyWord)
+
  e.target.reset()
 
 
+}
 
-  }
+
 
  
 
-loadMore = (e) => {
+const loadMore = (e) => {
 
 e.preventDefault()
 
-  this.setState(prevState => {
-    return {
-      
-      perPage: prevState.perPage + 12,
-      
-    }
-  })
-console.log(this.state.page)
+setperPage(state => state + 12)
+console.log(perPage)
 
 }
 
 
 
-onModal = (e) => {
+const onModal = (e) => {
   const target = e.target
-  this.setState({modal: true})
-let bigPhoto = this.state.photos.filter((photo) => photo.id === Math.floor(target.name))
-this.setState({largePhoto: bigPhoto})
+ setIsModalOpen(true)
+let bigPhoto = photos.filter((photo) => photo.id === Math.floor(target.name))
+setLargePhoto(bigPhoto)
   }
 
-  quitModal = (e) => {
+
+
+
+
+ const quitModal = (e) => {
 if (e.key === "Escape") {
-    this.setState({modal: false})
+    setIsModalOpen(false)
 }
     
   }
 
-
-
-
-
-
-render () {
-
- const {total} = this.state
- const {modal} = this.state
-const {isLoading} = this.state
 
   return (
     <div 
@@ -130,15 +128,22 @@ const {isLoading} = this.state
         flexDirection: 'column'
       }}
     >
-      <SearchBar  onSubmit={this.onSubmit}/>
+      <SearchBar  onSubmit={onSubmit}/>
    {isLoading && <Loader Loading={isLoading}/>}
-      <ImageGallery photos={this.state.photos} onModal={this.onModal}/>
-      {total > 12 && <Button loadMOre={this.loadMore}/>}
-     {modal && <Modal photos={this.state.photos} largePhoto={this.state.largePhoto} />}
+   <ImageGallery Images={photos} onModal={onModal}/>
+
+      <Button loadMOre={loadMore}/>
+     {isModalOpen && <Modal photos={photos} largePhoto={largePhoto} />}
     </div>
   )
 
     }
-  }
+  
 
   export default App
+
+
+/*
+
+
+*/

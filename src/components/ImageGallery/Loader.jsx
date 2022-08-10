@@ -3,7 +3,6 @@ import { Rings } from "react-loader-spinner";
 
 const Loader = ({Loading}) => {
 
-console.log(typeof(Loading))
 
 return (
 
