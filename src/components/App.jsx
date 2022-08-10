@@ -13,47 +13,57 @@ function App () {
 
 
 const [photos, setPhotos] = useState([]) 
+const [key, setKey] = useState("")
 const [total, setTotal] = useState(0)
 const [perPage, setperPage] = useState(12)
 const [isModalOpen, setIsModalOpen] = useState(false)
 const [largePhoto, setLargePhoto] = useState([])
 const [isLoading, setisLoading] = useState(false)
-
-const page = 1
-
+const [page, setPage] = useState(1)
 
 
 
-/*
-const componentDidUpdate = (prevProps, prevState) => {
-
-  console.log(this.state.photos) 
-const currentKey = this.state.key
-console.log( currentKey)
-if (prevState.key !== this.state.key) {
-
-  this.setState({page: 1, perPage: 12})
-}
-
-if (prevState.link !== this.state.link) {
-this.getPhoto()
-
-} else if (prevState.perPage !== this.state.perPage) {
-  this.setState({ link: `https://pixabay.com/api/?q=${this.state.key}&page=${this.state.page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${this.state.perPage}`})
-
-  } 
-
-
-document.addEventListener('keydown', this.quitModal)
-
-
-}
-
-*/
 
 
 
-const getPhoto = async (key) => {
+useEffect(() => {
+window.addEventListener('keydown', quitModal)
+
+}, [isModalOpen])
+
+
+
+useEffect(() => {
+  async function getPhoto ()  {
+
+    const getPhotos = await axios.get(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
+    setPhotos(getPhotos.data.hits)
+  setTotal(getPhotos.data.total)
+    setisLoading(false)
+  }
+  getPhoto()
+
+}, [perPage, page, key])
+
+
+useEffect(() => {
+setperPage(12)
+setPage(1)
+
+}, [key])
+
+
+
+
+useEffect(() => {
+setKey(undefined)
+}, [])
+
+
+
+
+
+async function getPhoto ()  {
 
   const getPhotos = await axios.get(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
   setPhotos(getPhotos.data.hits)
@@ -66,7 +76,7 @@ const onSubmit =  (e) => {
   e.preventDefault()
   setisLoading(true)
 const keyWord = e.target.search.value
-
+setKey(keyWord)
  e.target.reset()
 
 getPhoto(keyWord)
@@ -81,7 +91,7 @@ const loadMore = (e) => {
 e.preventDefault()
 
 setperPage(state => state + 12)
-console.log(perPage)
+
 
 }
 
@@ -94,13 +104,13 @@ let bigPhoto = photos.filter((photo) => photo.id === Math.floor(target.name))
 setLargePhoto(bigPhoto)
   }
 
+  const quitModal = (e) => {
+    if (e.key === "Escape") {
+        setIsModalOpen(false)
+    }
+        
+      }
 
- const quitModal = (e) => {
-if (e.key === "Escape") {
-    setIsModalOpen(false)
-}
-    
-  }
 
 
   return (
@@ -116,9 +126,9 @@ if (e.key === "Escape") {
     >
       <SearchBar  onSubmit={onSubmit}/>
    {isLoading && <Loader Loading={isLoading}/>}
-   <ImageGallery Images={photos} onModal={onModal}/>
+   {photos.length > 1 && <ImageGallery Images={photos} onModal={onModal}/>}
 
-      <Button loadMOre={loadMore}/>
+      {total > 12 && <Button loadMOre={loadMore}/>}
      {isModalOpen && <Modal photos={photos} largePhoto={largePhoto} />}
     </div>
   )
@@ -133,3 +143,4 @@ if (e.key === "Escape") {
 
 
 */
+

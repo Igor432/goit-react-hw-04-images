@@ -3,6 +3,10 @@ import ImageGalleryItem from "./ImageGalleryItem"
 
 
 const ImageGallery = ({Images, onModal}) => {
+
+
+
+    
  
     return (
         <ul class="ImageGallery">
