@@ -55,9 +55,6 @@ setPage(1)
 
 
 
-useEffect(() => {
-setKey(undefined)
-}, [])
 
 
 
@@ -126,9 +123,9 @@ setLargePhoto(bigPhoto)
     >
       <SearchBar  onSubmit={onSubmit}/>
    {isLoading && <Loader Loading={isLoading}/>}
-   {photos.length > 1 && <ImageGallery Images={photos} onModal={onModal}/>}
+   {key !== "" && <ImageGallery Images={photos} onModal={onModal}/>}
 
-      {key !== '' && <Button loadMOre={loadMore}/>}
+      {total > 12 && <Button loadMOre={loadMore}/>}
      {isModalOpen && <Modal photos={photos} largePhoto={largePhoto} />}
     </div>
   )
