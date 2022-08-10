@@ -34,6 +34,7 @@ useEffect(() => {
   
   async function getPhoto ()  {
     setLink(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
+    
     const getPhotos = await axios.get(link)
     setPhotos(getPhotos.data.hits)
   setTotal(getPhotos.data.total)
