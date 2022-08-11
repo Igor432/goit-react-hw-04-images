@@ -8,6 +8,8 @@ import Loader from './ImageGallery/Loader'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { useRef } from 'react'
+import { createContext } from 'react'
+export const ContextValues = createContext()
 
 
 function App () {
@@ -132,12 +134,14 @@ setLargePhoto(bigPhoto)
         flexDirection: 'column'
       }}
     >
+      <ContextValues.Provider value={onModal}>
       <SearchBar  onSubmit={onSubmit}/>
    {isLoading && <Loader Loading={isLoading}/>}
    {key !== "" && <ImageGallery Images={photos} onModal={onModal}/>}
 
       {total > 12 && <Button loadMOre={loadMore}/>}
      {isModalOpen && <Modal photos={photos} largePhoto={largePhoto} />}
+     </ContextValues.Provider>
     </div>
   )
 
