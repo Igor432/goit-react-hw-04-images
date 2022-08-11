@@ -32,6 +32,15 @@ window.addEventListener('keydown', quitModal)
 }, [isModalOpen])
 
 
+
+useEffect(() => {
+
+setLink("")
+
+}, [])
+
+
+
 useEffect(() => {
 
   if (isFirstRender.current) {
