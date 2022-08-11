@@ -64,7 +64,9 @@ console.log(error)
   }
 
 
- if (key !== "") {
+
+  
+  if (key !== "") {
     getPhoto()
 } else {
   console.log("empty")
@@ -84,15 +86,11 @@ const onSubmit =  (e) => {
   e.preventDefault()
   setisLoading(true)
 const keyWord = e.target.search.value
-if (keyWord=== key) {
-console.log("The same key")
-setisLoading(false)
-} else {
 setKey(keyWord)
 setPage(1)
 setperPage(12)
 e.target.reset()
-}
+
 }
 
 
