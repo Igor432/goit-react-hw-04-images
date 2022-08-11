@@ -7,6 +7,7 @@ import Modal from './ImageGallery/Modal'
 import Loader from './ImageGallery/Loader'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useRef } from 'react'
 
 
 function App () {
@@ -22,6 +23,7 @@ const [isLoading, setisLoading] = useState(false)
 const [page, setPage] = useState(1)
 const [link, setLink] = useState('')
 
+const isFirstRender = useRef(true)
 
 useEffect(() => {
 
@@ -31,6 +33,11 @@ window.addEventListener('keydown', quitModal)
 
 
 useEffect(() => {
+
+  if (isFirstRender.current) {
+    isFirstRender.current = false;
+    return
+  }
   
   async function getPhoto ()  {
     setLink(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
@@ -40,7 +47,7 @@ useEffect(() => {
   setTotal(getPhotos.data.total)
     setisLoading(false)
   }
-  if (key !== '') {
+  if (key !== "") {
     getPhoto()
 } else {
   console.log("empty")
