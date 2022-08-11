@@ -51,21 +51,13 @@ useEffect(() => {
   async function getPhoto ()  {
     setLink(`https://pixabay.com/api/?q=${key}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
     
-    try {
-    const getPhotos = await axios.get(link)
-    setPhotos(getPhotos.data.hits)
+    
+  const getPhotos = await axios.get(link)
+  setPhotos(getPhotos.data.hits)
   setTotal(getPhotos.data.total)
-    setisLoading(false)
-  } catch (error) {
-console.log(error)
-  } finally {
-    setisLoading(false)
-  }
+  setisLoading(false)
   }
 
-
-
-  
   if (key !== "") {
     getPhoto()
 } else {
@@ -86,10 +78,15 @@ const onSubmit =  (e) => {
   e.preventDefault()
   setisLoading(true)
 const keyWord = e.target.search.value
+if (keyWord === key) {
+  setisLoading(false)
+  return 
+}
 setKey(keyWord)
 setPage(1)
 setperPage(12)
 e.target.reset()
+setLink(`https://pixabay.com/api/?q=${keyWord}&page=${page}&key=28780636-ee20ed417c8a5aa1eeee48e35&image_type=photo&orientation=horizontal&per_page=${perPage}`)
 
 }
 
