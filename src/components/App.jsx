@@ -97,12 +97,8 @@ setLink(`https://pixabay.com/api/?q=${keyWord}&page=${page}&key=28780636-ee20ed4
  
 
 const loadMore = (e) => {
-
 e.preventDefault()
-
 setperPage(state => state + 12)
-
-
 }
 
 
