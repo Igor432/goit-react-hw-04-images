@@ -1,19 +1,26 @@
-import { useContext } from 'react'
-import '../styles.css'
-import { ContextValues } from 'components/App'
+import { useContext } from 'react';
+import '../styles.css';
+import { ContextValues } from 'components/App';
+import PropTypes from 'prop-types'; // ES6
 
+const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
+  const onModal = useContext(ContextValues);
 
-const ImageGalleryItem = ({ webformatURL, largeImageURL, id}) => {
-
-const onModal = useContext(ContextValues)
-
-return (
-
+  return (
     <li class="ImageGalleryItem">
-  <img class='ImageGalleryItem-image' name={id}  src={webformatURL} alt="" onClick={onModal}/>
-</li>
-)
-    
-}
+      <img
+        class="ImageGalleryItem-image"
+        name={id}
+        src={webformatURL}
+        alt=""
+        onClick={onModal}
+      />
+    </li>
+  );
+};
 
-export default ImageGalleryItem
+ImageGalleryItem.propTypes = {
+  onModal: PropTypes.func,
+};
+
+export default ImageGalleryItem;

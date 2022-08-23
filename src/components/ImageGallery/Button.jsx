@@ -1,13 +1,18 @@
-import '../styles.css'
+import '../styles.css';
+import PropTypes from 'prop-types'; // ES6
 
-const Button = ({loadMOre}) => {
+const Button = ({ loadMOre }) => {
+  return (
+    <div class="Load-more">
+      <button type="button" class="Button" onClick={loadMOre}>
+        Load More
+      </button>
+    </div>
+  );
+};
 
-    return (
+Button.propTypes = {
+  loadMOre: PropTypes.func,
+};
 
-<div class='Load-more'>
-    <button type="button" class='Button' onClick={loadMOre}>Load More</button>
-</div>
-    )
-}
-
-export default Button
+export default Button;
