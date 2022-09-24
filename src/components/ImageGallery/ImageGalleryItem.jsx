@@ -1,10 +1,22 @@
-import { useContext } from 'react';
 import '../styles.css';
-import { ContextValues } from 'components/App';
 import PropTypes from 'prop-types'; // ES6
+import Modal from '../ImageGallery/Modal';
+import { useState } from 'react';
 
 const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
-  const onModal = useContext(ContextValues);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const quitModal = e => {
+    onModal();
+  };
+
+  if (isModalOpen) {
+    return <Modal largePhoto={largeImageURL} quitModal={quitModal} />;
+  }
 
   return (
     <li class="ImageGalleryItem">
@@ -14,6 +26,7 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
         src={webformatURL}
         alt=""
         onClick={onModal}
+        large={largeImageURL}
       />
     </li>
   );

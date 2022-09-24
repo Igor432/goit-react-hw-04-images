@@ -1,7 +1,7 @@
 import '../styles.css';
 import PropTypes from 'prop-types'; // ES6
 
-const SearchBar = ({ onSubmit }) => {
+const SearchBar = ({ onSubmit, onChange }) => {
   return (
     <header class="Searchbar">
       <form class="SearchForm" onSubmit={onSubmit}>
@@ -16,6 +16,7 @@ const SearchBar = ({ onSubmit }) => {
           autoFocus
           placeholder="Search images and photos"
           name="search"
+          onChange={onChange}
         />
       </form>
     </header>
