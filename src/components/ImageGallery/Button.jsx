@@ -1,10 +1,10 @@
-import '../styles.css';
+import styles from '../images.module.css';
 import PropTypes from 'prop-types'; // ES6
 
 const Button = ({ loadMOre }) => {
   return (
-    <div class="Load-more">
-      <button type="button" class="Button" onClick={loadMOre}>
+    <div className={styles.Load_more}>
+      <button type="button" className={styles.Button} onClick={loadMOre}>
         Load More
       </button>
     </div>

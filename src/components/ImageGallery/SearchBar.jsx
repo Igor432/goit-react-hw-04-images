@@ -1,16 +1,16 @@
-import '../styles.css';
+import styles from '../images.module.css';
 import PropTypes from 'prop-types'; // ES6
 
 const SearchBar = ({ onSubmit, onChange }) => {
   return (
-    <header class="Searchbar">
-      <form class="SearchForm" onSubmit={onSubmit}>
-        <button type="submit" class="SearchForm-button">
-          <span class="SearchForm-button-label"></span>
+    <header className={styles.Searchbar}>
+      <form className={styles.SearchForm} onSubmit={onSubmit}>
+        <button type="submit" className={styles.SearchForm_button}>
+          <span className={styles.SearchForm_button_label}/>
         </button>
 
         <input
-          class="SearchForm-input"
+          className={styles.SearchForm_input}
           type="text"
           autoComplete="off"
           autoFocus
@@ -24,7 +24,8 @@ const SearchBar = ({ onSubmit, onChange }) => {
 };
 
 SearchBar.propTypes = {
-  onSubmit: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default SearchBar;

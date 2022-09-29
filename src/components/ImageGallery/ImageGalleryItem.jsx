@@ -1,4 +1,4 @@
-import '../styles.css';
+import styles from '../images.module.css';
 import PropTypes from 'prop-types'; // ES6
 import Modal from '../ImageGallery/Modal';
 import { useState } from 'react';
@@ -19,9 +19,9 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
   }
 
   return (
-    <li class="ImageGalleryItem">
+    <li className={styles.ImageGalleryItem}>
       <img
-        class="ImageGalleryItem-image"
+        className={styles.ImageGalleryItem_image}
         name={id}
         src={webformatURL}
         alt=""
@@ -33,7 +33,9 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
 };
 
 ImageGalleryItem.propTypes = {
-  onModal: PropTypes.func,
+  id: PropTypes.number.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  webformatURL: PropTypes.string.isRequired
 };
 
 export default ImageGalleryItem;

@@ -1,4 +1,4 @@
-import '../styles.css';
+import styles from '../images.module.css';
 import PropTypes from 'prop-types'; // ES6
 import { useEffect } from 'react';
 
@@ -14,8 +14,8 @@ const Modal = ({ largePhoto, quitModal }) => {
   });
 
   return (
-    <div class="Overlay" onClick={quitModal}>
-      <div class="Modal">
+    <div className={styles.Overlay} onClick={quitModal}>
+      <div className={styles.Modal}>
         <img src={largePhoto} alt="" />
       </div>
     </div>
@@ -23,7 +23,8 @@ const Modal = ({ largePhoto, quitModal }) => {
 };
 
 Modal.propTypes = {
-  quitModal: PropTypes.func,
+  quitModal: PropTypes.func.isRequired,
+  largePhoto: PropTypes.string.isRequired
 };
 
 export default Modal;

@@ -1,11 +1,10 @@
-import './styles.css';
+import styles from './images.module.css';
 import axios from 'axios';
 import SearchBar from './ImageGallery/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './ImageGallery/Button';
 import Loader from './ImageGallery/Loader';
 import { useState } from 'react';
-
 
 function App() {
   const [photos, setPhotos] = useState([]);
@@ -45,16 +44,7 @@ function App() {
   };
 
   return (
-    <div
-      class="App"
-      style={{
-        height: '100vh',
-        display: 'flex',
-        fontSize: 40,
-        color: '#010101',
-        flexDirection: 'column',
-      }}
-    >
+    <div class={styles.App}>
       <SearchBar onSubmit={onSubmit} onChange={onChange} />
       {isLoading && <Loader Loading={isLoading} />}
       <ImageGallery Images={photos} />
