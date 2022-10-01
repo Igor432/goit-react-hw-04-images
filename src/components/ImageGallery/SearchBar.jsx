@@ -1,7 +1,7 @@
 import styles from '../images.module.css';
 import PropTypes from 'prop-types'; // ES6
 
-const SearchBar = ({ onSubmit, onChange }) => {
+const SearchBar = ({keyWord, onSubmit, onChange }) => {
   return (
     <header className={styles.Searchbar}>
       <form className={styles.SearchForm} onSubmit={onSubmit}>
@@ -17,6 +17,7 @@ const SearchBar = ({ onSubmit, onChange }) => {
           placeholder="Search images and photos"
           name="search"
           onChange={onChange}
+          value={keyWord}
         />
       </form>
     </header>

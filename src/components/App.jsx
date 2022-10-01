@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div class={styles.App}>
-      <SearchBar onSubmit={onSubmit} onChange={onChange} />
+      <SearchBar onSubmit={onSubmit} onChange={onChange} keyWord={key}/>
       {isLoading && <Loader Loading={isLoading} />}
       <ImageGallery Images={photos} />
 

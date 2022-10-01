@@ -6,16 +6,21 @@ import { useState } from 'react';
 const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const onModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const toggleModal = () => {
+    setIsModalOpen(prev => !prev);
+   
   };
 
-  const quitModal = e => {
-    onModal();
-  };
+ 
 
   if (isModalOpen) {
-    return <Modal largePhoto={largeImageURL} quitModal={quitModal} />;
+    return (
+      <Modal
+        largePhoto={largeImageURL}
+        quitModal={toggleModal}
+       modal = {isModalOpen}
+      />
+    );
   }
 
   return (
@@ -25,7 +30,7 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
         name={id}
         src={webformatURL}
         alt=""
-        onClick={onModal}
+        onClick={toggleModal}
         large={largeImageURL}
       />
     </li>
@@ -35,7 +40,7 @@ const ImageGalleryItem = ({ webformatURL, largeImageURL, id }) => {
 ImageGalleryItem.propTypes = {
   id: PropTypes.number.isRequired,
   largeImageURL: PropTypes.string.isRequired,
-  webformatURL: PropTypes.string.isRequired
+  webformatURL: PropTypes.string.isRequired,
 };
 
 export default ImageGalleryItem;
