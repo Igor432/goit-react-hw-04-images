@@ -2,7 +2,6 @@ import styles from './images.module.css';
 import axios from 'axios';
 import SearchBar from './ImageGallery/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
-import Button from './ImageGallery/Button';
 import Loader from './ImageGallery/Loader';
 import PageButtons from './ImageGallery/PageButtons';
 import { useState } from 'react';
@@ -50,6 +49,9 @@ function App() {
   };
 
   /*
+import Button from './ImageGallery/Button';
+
+
   const loadMore = e => {
     e.preventDefault();
     getPhoto(key, page);
