@@ -226,3 +226,27 @@ img {
     display: flex;
     justify-content: center;
 }
+
+.page_buttons {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 15px;
+    padding-inline-start: 0px;
+}
+
+.page_button_item,
+.page_button_item_previous,
+.page_button_item_next {
+    padding: 8px 16px;
+    border-radius: 2px;
+    background-color: #3f51b5;
+}
+
+.page_button_item_current {
+    padding: 8px 16px;
+    border-radius: 2px;
+    background-color: #b0b2c1;
+}
